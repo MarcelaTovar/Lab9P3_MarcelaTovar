@@ -1,5 +1,10 @@
 #include <iostream>
+#include "Paypal.h"
 using namespace std;
+void crear() {
+    Paypal* p = new Paypal();
+    p->crearUsuario();
+}
 void menu() {
     bool check = true;
     int opcion = 0;
@@ -15,6 +20,7 @@ void menu() {
         cin >> opcion;
         switch (opcion) {
         case 1:
+            crear();
             break;
         case 2:
             break;

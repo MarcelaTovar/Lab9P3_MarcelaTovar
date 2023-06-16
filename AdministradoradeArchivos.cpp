@@ -6,6 +6,7 @@ void AdministradoradeArchivos::escribirArchivo(string id, UsuarioPaypal* a) {
 	archive.write((char*)a, sizeof(a));
 	archive.close();
 }
+//Leer el archivo
 void AdministradoradeArchivos::leerArchivo(string id) {
 	string temp = id + ".lab";
 	fstream archive(temp, ios::binary | ios::in);

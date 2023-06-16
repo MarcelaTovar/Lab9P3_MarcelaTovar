@@ -1,13 +1,17 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
+#include "Wallet.h"
 using namespace std;
 class UsuarioPaypal{
 public:
 	string nombreUsuario;
-	int numeroIdentidad;
+	string numeroIdentidad;
 	string contra;
-	UsuarioPaypal(string,int,string);
+	int dinero;
+	//vector<Wallet*>wallets;
+	UsuarioPaypal(string,string,string,int);
 	UsuarioPaypal();
 };
 
