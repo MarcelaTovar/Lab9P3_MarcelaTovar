@@ -3,6 +3,7 @@
 #include "UsuarioPaypal.h"
 #include "Wallet.h"
 #include <vector>
+#include <iomanip>
 using namespace std;
 void crear() {
     Paypal* p = new Paypal();
@@ -19,6 +20,8 @@ void crearWallet() {
     cin >> contra;
 }
 void menu() {
+    string path = "./";
+    string ext = ".lab";
     int cantidadDeposito = 0;
     int cantidadRetiro = 0;
     string usuarioIniciarPaypal;
@@ -27,7 +30,10 @@ void menu() {
     int opcion = 0;
     bool checking = true;
     bool terminarSubMenuPay = true;
+    bool terminarSubMenuWallet = true;
     int submenu1 = 0;
+    int submenu2 = 0;
+    bool revisarEx = true;
     Paypal* p = new Paypal();
     string user, contra;
     string userPaypal;
@@ -51,24 +57,29 @@ void menu() {
             UsuarioPaypal* temp = new UsuarioPaypal();
             cout << "Ingrese el usuario de la cuenta vinculada: " << endl;
             cin >> userPaypal;
-            for (size_t i = 0; i < p->usuarios.size(); i++){
-                if (p->usuarios.at(i)->nombreUsuario == userPaypal){
-                    temp = p->usuarios.at(i); check = false;
+            for (size_t i = 0; i < p->usuarios.size(); i++) {
+                if (p->usuarios.at(i)->nombreUsuario == userPaypal) {
+                    temp = p->usuarios.at(i);
+                    revisarEx = false;
                 }
             }
-            
-            cout << "Ingrese el usuario: " << endl;
-            cin >> user;
-            cout << "Ingrese la contrasenia: " << endl;
-            cin >> contra;
-            Wallet* w = new Wallet(user,contra,temp);
-            wallets.push_back(w);
-            
+            if (revisarEx){
+                cout << "Usuario no encontrado";
+            }
+            else {
+                cout << "Ingrese el usuario: " << endl;
+                cin >> user;
+                cout << "Ingrese la contrasenia: " << endl;
+                cin >> contra;
+                Wallet* w = new Wallet(user, contra, temp);
+                wallets.push_back(w);
+            }
+
             break;
         }
         case 3:
             
-           
+            p->Admin->leerArchivo((path));
             break;
         case 4: {
             UsuarioPaypal* temp = new UsuarioPaypal();
@@ -77,8 +88,8 @@ void menu() {
             cin >> usuarioIniciarPaypal;
             cout << "Ingrese su contra: " << endl;
             cin >> contraIniciarPaypal;
-            for (size_t i = 0; i < p->usuarios.size(); i++){
-                if (p->usuarios.at(i)->numeroIdentidad == usuarioIniciarPaypal){
+            for (size_t i = 0; i < p->usuarios.size(); i++) {
+                if (p->usuarios.at(i)->numeroIdentidad == usuarioIniciarPaypal) {
                     if (p->usuarios.at(i)->contra == contraIniciarPaypal) {
                         temp = p->usuarios.at(i);
                         checking = false;
@@ -106,14 +117,20 @@ void menu() {
                         cin >> cantidadDeposito;
                         temp->dinero = temp->dinero + cantidadDeposito;
                         cout << "Deposito realizado con exito!" << endl;
+                        string h = "Se ha depositado" + cantidadDeposito;
+                        temp->historial.push_back(h);
                     }
                     else if (submenu1 == 3) {
                         cout << "De cuanto desea el retiro: " << endl;
                         cin >> cantidadRetiro;
                         temp->dinero = temp->dinero - cantidadRetiro;
+                        string h = "Se ha retirado" + cantidadRetiro;
+                        temp->historial.push_back(h);
                     }
                     else if (submenu1 == 4) {
-                        
+                        for (size_t i = 0; i < temp->historial.size(); i++) {
+                            cout << temp->historial.at(i) << endl;
+                        }
                     }
                     else if (submenu1 == 5) {
                         terminarSubMenuPay = false;
@@ -122,8 +139,51 @@ void menu() {
             }
             break;
         }
-            
-        case 5:
+
+        case 5:{
+            Wallet * temp = new Wallet();
+            checking = true;
+            cout << "Ingrese su usuario Wallet: " << endl;
+            cin >> usuarioIniciarPaypal;
+            cout << "Ingrese su Wallet: " << endl;
+            cin >> contraIniciarPaypal;
+            for (size_t i = 0; i < wallets.size(); i++) {
+                if (wallets.at(i)->Usuario == usuarioIniciarPaypal) {
+                    if (wallets.at(i)->contra == contraIniciarPaypal) {
+                        temp = wallets.at(i);
+                        checking = false;
+                    }
+                }
+            }
+            if (checking) {
+                cout << "Usuario o contrasenia incorrectos" << endl;
+            }
+            else {
+                do {
+                    cout << "---BIENVENIDO---" << endl;
+                    cout << "1. Ver estado de cuenta" << endl;
+                    cout << "2. Comprar Cryptos" << endl;
+                    cout << "3. Vender Cryptos" << endl;
+                    cout << "4. Salir" << endl;
+                    cin >> submenu2;
+                    if (submenu2 == 1) {
+                        cout << "Tu estado de cuenta es: " << temp->userPaypal->dinero;
+                    }
+                    else if (submenu2 == 2) {
+                        temp->compra();
+                    }
+                    else if (submenu2 == 3) {
+                        temp->vender();
+                        string h = "Se ha depositado" + temp->cantidadVendida;
+                        temp->userPaypal->historial.push_back(h);
+                    }
+                    else if (submenu2 == 4) {
+                        terminarSubMenuWallet = false;
+
+                    }
+                } while (terminarSubMenuWallet);
+            }
+        }
             break;
         case 6:
             check = false;
@@ -134,6 +194,12 @@ void menu() {
         }
     } while (check);
     cout << "Bye bye! :D" << endl;
+    for (size_t i = 0; i < p->usuarios.size(); i++) {
+        delete p->usuarios.at(i);
+    }for (size_t i = 0; i < wallets.size(); i++)
+    {
+        delete wallets.at(i);
+    }
 }
 int main(){
     menu();

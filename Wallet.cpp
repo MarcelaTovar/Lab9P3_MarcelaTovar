@@ -31,8 +31,8 @@ void Wallet::compra() {
 		}
 	}
 	else if (escoger == 3) {
-		if (this->userPaypal->dinero > 0.6) {
-			userPaypal->dinero = userPaypal->dinero - 0.6;
+		if (this->userPaypal->dinero > 5) {
+			userPaypal->dinero = userPaypal->dinero - 5;
 			cout << "Compra exitosa" << endl;
 		}
 		else {
@@ -54,31 +54,19 @@ void Wallet::vender() {
 	cout << "Cuanto desea vender?" << endl;
 	cin >> cantidad;
 	if (escoger == 1) {
-		if (this->userPaypal->dinero > 0.6) {
 			userPaypal->dinero = userPaypal->dinero + ((cantidad*0.6));
 			cout << "venta exitosa" << endl;
-		}
-		else {
-			cout << "No hay suficientes fondos" << endl;
-		}
+			this->cantidadVendida = cantidad * 0.6;
 	}
 	else if (escoger == 2) {
-		if (this->userPaypal->dinero > 1000) {
 			userPaypal->dinero = userPaypal->dinero + ((cantidad * 1000));
 			cout << "venta exitosa" << endl;
-		}
-		else {
-			cout << "No hay suficientes fondos" << endl;
-		}
+			this->cantidadVendida = cantidad * 1000;
 	}
 	else if (escoger == 3) {
-		if (this->userPaypal->dinero > 5) {
 			userPaypal->dinero = userPaypal->dinero + ((cantidad * 5));
 			cout << "venta exitosa" << endl;
-		}
-		else {
-			cout << "No hay suficientes fondos" << endl;
-		}
+			this->cantidadVendida = cantidad * 5;
 	}
 	else {
 		cout << "Escoja una opcion valida" << endl;

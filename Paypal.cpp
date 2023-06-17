@@ -25,6 +25,16 @@ void Paypal::crearUsuario() {
 			revisar = true;
 			break;
 		}
+		else if (contrasenia.size() < 8) {
+			revisar = true;
+		}
+		for (size_t i = 0; i < contrasenia.size(); i++)
+		{
+			if (!isalnum(contrasenia.at(i))) {
+				revisar = true;
+				break;
+			}
+		}
 	}
 	if (revisar) {
 		cout << "Ese usuario/contrasenia/identidad no son validos" << endl;

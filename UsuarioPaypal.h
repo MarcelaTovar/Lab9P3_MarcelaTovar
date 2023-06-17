@@ -11,6 +11,7 @@ public:
 	string contra;
 	int dinero;
 	//vector<Wallet*>wallets;
+	vector<string>historial;
 	UsuarioPaypal(string, string, string, int);
 	UsuarioPaypal();
 };
