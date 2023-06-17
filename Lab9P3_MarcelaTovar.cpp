@@ -142,7 +142,7 @@ void menu() {
             }
             break;
         }
-
+        //Acceder a Wallet
         case 5:{
             Wallet * temp = new Wallet();
             checking = true;
