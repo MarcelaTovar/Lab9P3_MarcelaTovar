@@ -6,9 +6,11 @@ using namespace std;
 class Wallet{
 public:
 	string Usuario;
-	//UsuarioPaypal* userPaypal;
+	UsuarioPaypal* userPaypal;
 	string contra;
 	void compra();
-	//Wallet(string , string , UsuarioPaypal* );
+	Wallet(string, string, UsuarioPaypal*);
+	void vender();
+	Wallet();
 };
 

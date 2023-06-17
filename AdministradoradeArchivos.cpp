@@ -15,6 +15,7 @@ void AdministradoradeArchivos::leerArchivo(string id) {
 		cout << "Usuario: " << aux.nombreUsuario;
 		cout << "Numero de Identidad" << aux.numeroIdentidad;
 		cout << "Contrasenia: " << aux.contra;
+		cout << "Cuenta Bancaria: " << aux.dinero;
 	}
 	archive.close();
 }

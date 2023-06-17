@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<fstream>
+#include<vector>
 #include "UsuarioPaypal.h"
 using namespace std;
 class AdministradoradeArchivos{
