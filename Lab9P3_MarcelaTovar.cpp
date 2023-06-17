@@ -5,6 +5,7 @@
 #include <vector>
 #include <iomanip>
 using namespace std;
+//Metodo de crear
 void crear() {
     Paypal* p = new Paypal();
     p->crearUsuario();
@@ -19,6 +20,7 @@ void crearWallet() {
     cout << "Ingrese la contrasenia: " << endl;
     cin >> contra;
 }
+//Menu principal
 void menu() {
     string path = "./";
     string ext = ".lab";
@@ -54,6 +56,7 @@ void menu() {
             break;
         }
         case 2: {
+            //Crear Wallet
             UsuarioPaypal* temp = new UsuarioPaypal();
             cout << "Ingrese el usuario de la cuenta vinculada: " << endl;
             cin >> userPaypal;
@@ -194,7 +197,9 @@ void menu() {
         }
     } while (check);
     cout << "Bye bye! :D" << endl;
+    //Liberar memoria
     for (size_t i = 0; i < p->usuarios.size(); i++) {
+        delete p->Admin;
         delete p->usuarios.at(i);
     }for (size_t i = 0; i < wallets.size(); i++)
     {

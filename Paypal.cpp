@@ -28,8 +28,7 @@ void Paypal::crearUsuario() {
 		else if (contrasenia.size() < 8) {
 			revisar = true;
 		}
-		for (size_t i = 0; i < contrasenia.size(); i++)
-		{
+		for (size_t i = 0; i < contrasenia.size(); i++){
 			if (!isalnum(contrasenia.at(i))) {
 				revisar = true;
 				break;
